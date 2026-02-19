@@ -27,12 +27,21 @@ export default function HomeScreen({ navigation, theme }) {
           autoCapitalize="none"
         />
 
-        <Pressable style={[styles.primaryBtn, { backgroundColor: theme.primary }]} onPress={startGame}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.primaryBtn,
+            { backgroundColor: theme.primary, opacity: pressed ? 0.85 : 1 },
+          ]}
+          onPress={startGame}
+        >
           <Text style={styles.primaryBtnText}>Start game</Text>
         </Pressable>
 
         <Pressable
-          style={[styles.secondaryBtn, { borderColor: theme.border }]}
+          style={({ pressed }) => [
+            styles.secondaryBtn,
+            { borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+          ]}
           onPress={() => navigation.navigate('Settings')}
         >
           <Text style={[styles.secondaryBtnText, { color: theme.text }]}>Settings</Text>
@@ -43,13 +52,46 @@ export default function HomeScreen({ navigation, theme }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'top', padding: 16 },
+  container: { flex: 1, justifyContent: 'flex-start', padding: 16 },
   card: { borderWidth: 1, borderRadius: 20, padding: 18 },
-  title: { fontSize: 34, fontWeight: '900' },
-  subtitle: { marginTop: 6, marginBottom: 16, fontSize: 14 },
-  input: { borderWidth: 1, borderRadius: 14, padding: 12, fontSize: 16, marginBottom: 12 },
+
+  title: {
+    fontSize: 34,
+    fontWeight: '900',
+    fontFamily: 'Lacquer',
+  },
+
+  subtitle: {
+    marginTop: 6,
+    marginBottom: 16,
+    fontSize: 14,
+  },
+
+  input: {
+    borderWidth: 1,
+    borderRadius: 14,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 12,
+  },
+
   primaryBtn: { padding: 14, borderRadius: 14, alignItems: 'center' },
-  primaryBtnText: { color: 'white', fontWeight: '800', fontSize: 16 },
-  secondaryBtn: { marginTop: 10, padding: 12, borderRadius: 14, alignItems: 'center', borderWidth: 1 },
-  secondaryBtnText: { fontWeight: '700', fontSize: 15 },
+  primaryBtnText: {
+    color: 'white',
+    fontWeight: '800',
+    fontSize: 16,
+  },
+
+  secondaryBtn: {
+    marginTop: 10,
+    padding: 12,
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+
+  secondaryBtnText: {
+    fontWeight: '700',
+    fontSize: 15,
+  },
 });

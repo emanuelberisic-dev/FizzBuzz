@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Audio } from 'expo-av';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
+
 
 export default function GameScreen({ navigation, route, theme, settings }) {
   const { username } = route.params;
@@ -68,7 +70,7 @@ export default function GameScreen({ navigation, route, theme, settings }) {
     if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz';
     if (num % 3 === 0) return 'Fizz';
     if (num % 5 === 0) return 'Buzz';
-    return 'Nije djeljiv';
+    return 'Next';
   }
 
   function handleAnswer(answer) {
@@ -102,12 +104,48 @@ export default function GameScreen({ navigation, route, theme, settings }) {
           {number}
         </Text>
 
-        <View style={styles.buttons}>
-          <Button title="Fizz" onPress={() => handleAnswer('Fizz')} />
-          <Button title="Buzz" onPress={() => handleAnswer('Buzz')} />
-          <Button title="FizzBuzz" onPress={() => handleAnswer('FizzBuzz')} />
-          <Button title="Nije djeljiv" onPress={() => handleAnswer('Nije djeljiv')} />
-        </View>
+            <View style={styles.grid}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.gridBtn,
+          { backgroundColor: theme.success, opacity: pressed ? 0.85 : 1 },
+        ]}
+        onPress={() => handleAnswer('Fizz')}
+      >
+        <Text style={styles.gridBtnText}>Fizz</Text>
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.gridBtn,
+          { backgroundColor: theme.primary, opacity: pressed ? 0.85 : 1 },
+        ]}
+        onPress={() => handleAnswer('Buzz')}
+      >
+        <Text style={styles.gridBtnText}>Buzz</Text>
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.gridBtn,
+          { backgroundColor: '#8B5CF6', opacity: pressed ? 0.85 : 1 }, 
+        ]}
+        onPress={() => handleAnswer('FizzBuzz')}
+      >
+        <Text style={styles.gridBtnText}>FizzBuzz</Text>
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.gridBtn,
+          { backgroundColor: theme.muted, opacity: pressed ? 0.85 : 1 },
+        ]}
+        onPress={() => handleAnswer('Next')}
+      >
+        <Text style={styles.gridBtnText}>Next</Text>
+      </Pressable>
+    </View>
+
       </View>
 
     </View>
@@ -143,4 +181,27 @@ const styles = StyleSheet.create({
     width: '100%',
     gap: 10,
   },
+
+  grid: {
+  width: '100%',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  gap: 12,
+},
+
+gridBtn: {
+  width: '48%',
+  height: 80,
+  borderRadius: 16,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+gridBtnText: {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: '900',
+},
+
 });

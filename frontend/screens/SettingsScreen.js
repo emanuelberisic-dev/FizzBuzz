@@ -1,4 +1,6 @@
 import { View, Text, Switch, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
+
 
 export default function SettingsScreen({ settings, setSettings, theme }) {
   const toggle = (key) => setSettings((s) => ({ ...s, [key]: !s[key] }));
