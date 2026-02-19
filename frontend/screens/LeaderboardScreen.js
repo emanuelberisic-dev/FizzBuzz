@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, ActivityIndicator, Alert } from 'react-native';
+import { Trophy, Medal } from 'lucide-react-native';
 import axios from 'axios';
 
 const API_BASE_URL = 'http://10.67.76.187:3000';
@@ -73,37 +74,38 @@ export default function LeaderboardScreen({ route, navigation, theme }) {
 
               <View style={styles.podiumRow}>
                 {top3.map((item, idx) => {
-                  const medal =
-                    idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉';
+                const color =
+                  idx === 0
+                    ? '#c4a117'
+                    : idx === 1
+                    ? '#a4a6a8'
+                    : '#d3771b';
 
-                  const accent =
-                    idx === 0
-                      ? '#FACC15'
-                      : idx === 1
-                      ? '#94A3B8'
-                      : '#CD7F32';
+                return (
+                  <View
+                    key={item.id}
+                    style={[
+                      styles.podiumCard,
+                      { backgroundColor: theme.card, borderColor: theme.border },
+                    ]}
+                  >
+                    {idx === 0 ? (
+                      <Trophy size={26} color={color} strokeWidth={2.5} />
+                    ) : (
+                      <Medal size={26} color={color} strokeWidth={2.5} />
+                    )}
 
-                  return (
-                    <View
-                      key={item.id}
-                      style={[
-                        styles.podiumCard,
-                        { backgroundColor: theme.card, borderColor: theme.border },
-                      ]}
-                    >
-                      <Text style={styles.medal}>{medal}</Text>
-                      <Text
-                        numberOfLines={1}
-                        style={[styles.podiumName, { color: theme.text }]}
-                      >
-                        {item.username}
-                      </Text>
-                      <Text style={[styles.podiumScore, { color: accent }]}>
-                        {item.score}
-                      </Text>
-                    </View>
-                  );
-                })}
+                    <Text style={[styles.podiumName, { color: theme.text }]}>
+                      {item.username}
+                    </Text>
+
+                    <Text style={[styles.podiumScore, { color }]}>
+                      {item.score}
+                    </Text>
+                  </View>
+                );
+              })}
+
               </View>
             </View>
           )}
