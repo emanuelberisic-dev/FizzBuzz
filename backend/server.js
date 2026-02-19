@@ -67,7 +67,6 @@ app.get('/leaderboard', async (req, res) => {
       SELECT id, username, score, created_at
       FROM leaderboard
       ORDER BY score DESC
-      LIMIT 20
     `;
 
     const result = await pool.query(query);
