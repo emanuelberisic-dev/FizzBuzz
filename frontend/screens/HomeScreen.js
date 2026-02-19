@@ -25,6 +25,7 @@ export default function HomeScreen({ navigation, theme }) {
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
+          maxLength={10}
         />
 
         <Pressable
